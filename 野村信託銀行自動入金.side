@@ -1,0 +1,394 @@
+{
+  "id": "1e9cfa89-2804-4041-8992-d0d681877f00",
+  "version": "2.0",
+  "name": "野村信託銀行自動入金",
+  "url": "/",
+  "tests": [{
+    "id": "384c303b-3c00-4662-9640-8fa6bc67c8e7",
+    "name": "入金",
+    "commands": [{
+      "id": "98328503-7ba0-47ca-977c-bca8aaa81bf3",
+      "comment": "",
+      "command": "open",
+      "target": "https://hometrade.nomura.co.jp/web/rmfCmnEtcExcSso8Action.do",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7274c80e-fe34-4b42-beff-0b913155a330",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1475x1060",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d643594e-15d3-4809-9bab-2bd1d6a5acd5",
+      "comment": "",
+      "command": "//***ユーザネーム",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "be84782c-7263-4d8a-aa5c-9e8ce9eb0402",
+      "comment": "",
+      "command": "click",
+      "target": "name=btnCd",
+      "targets": [
+        ["name=nationalId", "name"],
+        ["css=.ng-touched", "css:finder"],
+        ["xpath=//input[@name='nationalId']", "xpath:attributes"],
+        ["xpath=//form[@id='authForm']/dl/dd/input", "xpath:idRelative"],
+        ["xpath=//dd/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "24410883-0562-4982-9adb-313454613de0",
+      "comment": "",
+      "command": "type",
+      "target": "name=btnCd",
+      "targets": [
+        ["name=nationalId", "name"],
+        ["css=.ng-touched", "css:finder"],
+        ["xpath=//input[@name='nationalId']", "xpath:attributes"],
+        ["xpath=//form[@id='authForm']/dl/dd/input", "xpath:idRelative"],
+        ["xpath=//dd/input", "xpath:position"]
+      ],
+      "value": "946"
+    }, {
+      "id": "5845cb71-bcc5-41ac-b462-72dc0d2b4e0d",
+      "comment": "",
+      "command": "//***ユーザネーム",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "41f2fb6d-c8e0-420a-b6dc-c2ef4864ecad",
+      "comment": "",
+      "command": "click",
+      "target": "name=kuzNo",
+      "targets": [
+        ["name=nationalId", "name"],
+        ["css=.ng-touched", "css:finder"],
+        ["xpath=//input[@name='nationalId']", "xpath:attributes"],
+        ["xpath=//form[@id='authForm']/dl/dd/input", "xpath:idRelative"],
+        ["xpath=//dd/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "27ba9c68-cefd-45e8-97b8-041c9fe8d50d",
+      "comment": "",
+      "command": "type",
+      "target": "name=kuzNo",
+      "targets": [
+        ["name=nationalId", "name"],
+        ["css=.ng-touched", "css:finder"],
+        ["xpath=//input[@name='nationalId']", "xpath:attributes"],
+        ["xpath=//form[@id='authForm']/dl/dd/input", "xpath:idRelative"],
+        ["xpath=//dd/input", "xpath:position"]
+      ],
+      "value": "1611259"
+    }, {
+      "id": "312c096a-3fa0-4057-9104-d0edef09fc45",
+      "comment": "",
+      "command": "//***ログインパスワード",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fb347c9e-5255-4406-a893-96d966467644",
+      "comment": "",
+      "command": "click",
+      "target": "name=gnziLoginPswd",
+      "targets": [
+        ["id=password1", "id"],
+        ["name=MASK_LOGIN_PWD", "name"],
+        ["css=#password1", "css:finder"],
+        ["xpath=//input[@id='password1']", "xpath:attributes"],
+        ["xpath=//div[@id='mainColumn']/form/table/tbody/tr[2]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[2]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "403d58c8-375b-47c1-813a-eceb2b74c3f4",
+      "comment": "",
+      "command": "type",
+      "target": "name=gnziLoginPswd",
+      "targets": [
+        ["id=loginPassword", "id"],
+        ["name=password", "name"],
+        ["css=#loginPassword", "css:finder"],
+        ["xpath=//input[@id='loginPassword']", "xpath:attributes"],
+        ["xpath=//form[@id='authForm']/dl/dd[2]/input", "xpath:idRelative"],
+        ["xpath=//dd[2]/input", "xpath:position"]
+      ],
+      "value": "asunaro12"
+    }, {
+      "id": "668f6bc1-f5b6-4cb2-8ada-e324b2a15e7c",
+      "comment": "",
+      "command": "click",
+      "target": "name=_ActionID",
+      "targets": [
+        ["name=ACT_doLogin", "name"],
+        ["css=.btnMain1M", "css:finder"],
+        ["xpath=//input[@name='ACT_doLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='mainColumn']/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "239d7f96-6929-4a00-a985-df744627757e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=振込",
+      "targets": [
+        ["linkText=振込", "linkText"],
+        ["css=.col-4:nth-child(1) .col-12:nth-child(2) > .btn", "css:finder"],
+        ["xpath=(//a[contains(text(),'振込')])[5]", "xpath:link"],
+        ["xpath=//div[@id='mainContents']/form/div/div/div/div/div[2]/div[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/ima/IBGate/iB01101CT')])[2]", "xpath:href"],
+        ["xpath=//div[2]/div[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d04520fa-c143-4f47-894c-e21fb9002fa6",
+      "comment": "",
+      "command": "//***回数",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e48ee6b0-ca1f-4c35-8704-2463f93ad0a1",
+      "comment": "",
+      "command": "times",
+      "target": "10",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ef988ab-ebf3-467e-9d92-e10e2da6f678",
+      "comment": "",
+      "command": "//***振込先選択",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a01fdee4-09e1-4441-93c9-b9a025056221",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=選 択",
+      "targets": [
+        ["linkText=選 択", "linkText"],
+        ["css=.btnMain2S > a", "css:finder"],
+        ["xpath=//a[contains(text(),'選 択')]", "xpath:link"],
+        ["xpath=//a[@onclick='javascript:beforeSel(0); return false;']", "xpath:attributes"],
+        ["xpath=//div[@id='mainContents']/form/table/tbody/tr[2]/td[5]/span/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'javascript:void(0);')]", "xpath:href"],
+        ["xpath=//span/a", "xpath:position"],
+        ["xpath=//a[contains(.,'選 択')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9451c131-b0b2-450a-96eb-f3b03b2c8908",
+      "comment": "",
+      "command": "//***電話番号入力",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "979f94de-d591-4fa5-bd76-fc140db143ff",
+      "comment": "",
+      "command": "click",
+      "target": "name=CMCTN_DEST_TEL_NUM1",
+      "targets": [
+        ["name=CMCTN_DEST_TEL_NUM1", "name"],
+        ["css=.fcsov", "css:finder"],
+        ["xpath=//input[@name='CMCTN_DEST_TEL_NUM1']", "xpath:attributes"],
+        ["xpath=//div[@id='mainContents']/form/table/tbody/tr[3]/td/table/tbody/tr/td/input", "xpath:idRelative"],
+        ["xpath=//tr[3]/td/table/tbody/tr/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5fd57f44-451d-4df5-bf07-8421d3d05ce6",
+      "comment": "",
+      "command": "type",
+      "target": "name=CMCTN_DEST_TEL_NUM1",
+      "targets": [
+        ["name=amount", "name"],
+        ["css=.ng-valid-pattern:nth-child(1)", "css:finder"],
+        ["xpath=//input[@name='amount']", "xpath:attributes"],
+        ["xpath=//form[@id='transferAmountForm']/table/tbody/tr[6]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[6]/td/input", "xpath:position"]
+      ],
+      "value": "090"
+    }, {
+      "id": "b5c9c1e3-7869-4f11-ba0b-ecf7f761f1ca",
+      "comment": "",
+      "command": "click",
+      "target": "name=CMCTN_DEST_TEL_NUM2",
+      "targets": [
+        ["name=CMCTN_DEST_TEL_NUM2", "name"],
+        ["css=.fcsov", "css:finder"],
+        ["xpath=//input[@name='CMCTN_DEST_TEL_NUM2']", "xpath:attributes"],
+        ["xpath=//div[@id='mainContents']/form/table/tbody/tr[3]/td/table/tbody/tr/td/input[2]", "xpath:idRelative"],
+        ["xpath=//td/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "91bd80df-5b25-4693-86f2-acc205699ede",
+      "comment": "",
+      "command": "type",
+      "target": "name=CMCTN_DEST_TEL_NUM2",
+      "targets": [
+        ["name=amount", "name"],
+        ["css=.ng-valid-pattern:nth-child(1)", "css:finder"],
+        ["xpath=//input[@name='amount']", "xpath:attributes"],
+        ["xpath=//form[@id='transferAmountForm']/table/tbody/tr[6]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[6]/td/input", "xpath:position"]
+      ],
+      "value": "1254"
+    }, {
+      "id": "e15177e4-4ad5-4ddb-bc15-a4634e0a7a5a",
+      "comment": "",
+      "command": "click",
+      "target": "name=CMCTN_DEST_TEL_NUM3",
+      "targets": [
+        ["name=CMCTN_DEST_TEL_NUM3", "name"],
+        ["css=.fcsov", "css:finder"],
+        ["xpath=//input[@name='CMCTN_DEST_TEL_NUM3']", "xpath:attributes"],
+        ["xpath=//div[@id='mainContents']/form/table/tbody/tr[3]/td/table/tbody/tr/td/input[3]", "xpath:idRelative"],
+        ["xpath=//td/input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "303c3082-551e-4cee-a920-7ad15aefcc42",
+      "comment": "",
+      "command": "type",
+      "target": "name=CMCTN_DEST_TEL_NUM3",
+      "targets": [
+        ["name=amount", "name"],
+        ["css=.ng-valid-pattern:nth-child(1)", "css:finder"],
+        ["xpath=//input[@name='amount']", "xpath:attributes"],
+        ["xpath=//form[@id='transferAmountForm']/table/tbody/tr[6]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[6]/td/input", "xpath:position"]
+      ],
+      "value": "0650"
+    }, {
+      "id": "897d2a00-538b-46da-848f-1c549242184a",
+      "comment": "",
+      "command": "//***振込金額",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "35177dbc-2463-4ac3-954d-86396de1d0ea",
+      "comment": "",
+      "command": "click",
+      "target": "id=9",
+      "targets": [
+        ["id=9", "id"],
+        ["name=PIA_AMT_INPUT", "name"],
+        ["css=#\\39", "css:finder"],
+        ["xpath=//input[@id='9']", "xpath:attributes"],
+        ["xpath=//div[@id='mainContents']/form/table[3]/tbody/tr/td/table/tbody/tr/td/input", "xpath:idRelative"],
+        ["xpath=//table[3]/tbody/tr/td/table/tbody/tr/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "65021b9b-b7f6-45f2-aed2-444debefaead",
+      "comment": "",
+      "command": "type",
+      "target": "id=9",
+      "targets": [
+        ["name=amount", "name"],
+        ["css=.ng-valid-pattern:nth-child(1)", "css:finder"],
+        ["xpath=//input[@name='amount']", "xpath:attributes"],
+        ["xpath=//form[@id='transferAmountForm']/table/tbody/tr[6]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[6]/td/input", "xpath:position"]
+      ],
+      "value": "10000"
+    }, {
+      "id": "5ca59b78-651f-4f3f-b409-59b493a85977",
+      "comment": "",
+      "command": "click",
+      "target": "name=ACT_doConfirm",
+      "targets": [
+        ["name=ACT_doConfirm", "name"],
+        ["css=.btnMain1M", "css:finder"],
+        ["xpath=//input[@name='ACT_doConfirm']", "xpath:attributes"],
+        ["xpath=//div[@id='mainContents']/form/div[9]/input", "xpath:idRelative"],
+        ["xpath=//div[9]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b9edda61-73bf-4172-91e3-bdf5d1efcadd",
+      "comment": "",
+      "command": "click",
+      "target": "name=ACT_doDecide",
+      "targets": [
+        ["name=ACT_doDecide", "name"],
+        ["css=.btnMain1M", "css:finder"],
+        ["xpath=//input[@name='ACT_doDecide']", "xpath:attributes"],
+        ["xpath=//div[@id='mainContents']/form/div[6]/input", "xpath:idRelative"],
+        ["xpath=//div[6]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c85e3d9-752a-407e-b254-567059593a3b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=続けて振込をする",
+      "targets": [
+        ["name=ACT_doDecide", "name"],
+        ["css=.btnMain1M", "css:finder"],
+        ["xpath=//input[@name='ACT_doDecide']", "xpath:attributes"],
+        ["xpath=//div[@id='mainContents']/form/div[6]/input", "xpath:idRelative"],
+        ["xpath=//div[6]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ed8ee432-8964-496b-8cb0-765c271bee14",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0f33d3c9-2d02-435d-800e-881644ea933b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=ログアウト",
+      "targets": [
+        ["linkText=ログアウト", "linkText"],
+        ["css=.logout > a", "css:finder"],
+        ["xpath=//a[contains(text(),'ログアウト')]", "xpath:link"],
+        ["xpath=//div[@id='wrap']/header/div/div/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/ima/IBGate/i201301CT')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'ログアウト')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c21ccbc7-0984-45f0-9c20-fb1703244697",
+      "comment": "",
+      "command": "click",
+      "target": "id=button",
+      "targets": [
+        ["id=button", "id"],
+        ["name=ACT_doClose", "name"],
+        ["css=#button", "css:finder"],
+        ["xpath=//input[@id='button']", "xpath:attributes"],
+        ["xpath=//div[@id='contents']/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "3c76f527-4efd-4ff3-a138-98e98d90fdf7",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["384c303b-3c00-4662-9640-8fa6bc67c8e7"]
+  }],
+  "urls": ["https://www.sbishinseibank.co.jp/"],
+  "plugins": []
+}
