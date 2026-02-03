@@ -1,4 +1,6 @@
-import sys
+# ======================================================
+# ライブラリ
+# ======================================================
 import time
 from config import CONFIG
 from selenium import webdriver
@@ -6,15 +8,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# ======================================================
+# 設定ファイル（config.py）の読み込み
+# ======================================================
+AMOUNT_OF_MONEY = CONFIG["amountOfMoney"]
+SBISHINSEIBANK_CUSTOMER_NO = CONFIG["sbishinseibankCustomerNo"]
+SBISHINSEIBANK_PASSWORD = CONFIG["sbishinseibankLoginPassword"]
+SBISHINSEIBANK_PAYMENT_COUNT = CONFIG["sbishinseibankPaymentCount"]
+
+# ======================================================
+# メイン処理
+# ======================================================
 def main():
-    # 設定読み込み
-    customer_no = CONFIG["sbishinseibankCustomerNo"]
-    password = CONFIG["sbishinseibankLoginPassword"]
-
-    if not customer_no or not password:
-        print("Error: 設定ファイル 'sbishinseibankCustomerNo' または 'sbishinseibankLoginPassword' が設定されていません。")
-        sys.exit(1)
-
     # WebDriverの設定
     options = webdriver.FirefoxOptions()
     # 必要に応じてヘッドレスモードなどのオプションを追加
@@ -32,7 +37,6 @@ def main():
 
         # 2. ログインボタンクリック (新しいウィンドウが開く)
         print("ログインボタンをクリック...")
-        # .side: linkText=ログイン
         login_link = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.LINK_TEXT, "ログイン"))
         )
@@ -55,16 +59,15 @@ def main():
         # 店番号・口座番号 (name=nationalId)
         customer_no_input = driver.find_element(By.NAME, "nationalId")
         customer_no_input.clear()
-        customer_no_input.send_keys(customer_no)
+        customer_no_input.send_keys(SBISHINSEIBANK_CUSTOMER_NO)
         
         # パスワード (id=loginPassword)
         password_input = driver.find_element(By.ID, "loginPassword")
         password_input.clear()
-        password_input.send_keys(password)
+        password_input.send_keys(SBISHINSEIBANK_PASSWORD)
         
         # 4. ログイン実行
         print("ログイン実行...")
-        # ボタン: xpath=//button[contains(.,'ログイン')]
         login_btn = driver.find_element(By.XPATH, "//button[contains(.,'ログイン')]")
         login_btn.click()
 
@@ -72,12 +75,9 @@ def main():
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.LINK_TEXT, "振込")))
         print("ログイン成功")
 
-        # 5. 振込ループ処理 (10回)
-        payment_count = 6
-        amount = "10000"
-
-        for i in range(payment_count):
-            print(f"振込処理 {i+1} / {payment_count} 回目開始")
+        # 5. 振込ループ処理
+        for i in range(SBISHINSEIBANK_PAYMENT_COUNT):
+            print(f"振込処理 {i+1} / {SBISHINSEIBANK_PAYMENT_COUNT} 回目開始")
             
             # 振込メニューへ
             print("振込メニューを開く...")
@@ -88,7 +88,6 @@ def main():
             time.sleep(5)
             # 振込を行う
             print("振込を行うを選択...")
-            # css=tr:nth-child(1) a > .ng-binding or text check
             do_transfer_link = WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.XPATH, "//span[contains(.,'振込を行う')]"))
             )
@@ -96,28 +95,21 @@ def main():
             time.sleep(5)
             # 振込先選択 (1番目)
             print("振込先(1番目)を選択...")
-            # .side: css=.ng-scope:nth-child(2) > td .ng-binding or button inside td
-            # テーブルの行を探してボタンを押す
-            # 登録口座のボタン。通常 "選択" というテキストあるいはアイコン
-            # xpath=//tr[2]/td[6]/button/span (side file)
-            # tr[2]なのはheaderがあるからかも。
             first_payee_btn = WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[2]/div[1]/section[2]/div/table/tbody/tr/td[6]/button/span"))
             )
             first_payee_btn.click()
             time.sleep(5)
             # 金額入力
-            print(f"金額入力: {amount}円")
+            print(f"金額入力: {AMOUNT_OF_MONEY}円")
             amount_input = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.NAME, "amount"))
             )
             amount_input.clear()
-            amount_input.send_keys(amount)
+            amount_input.send_keys(AMOUNT_OF_MONEY)
 
             # 次へ
             print("次へ...")
-            # css=.inputAmountBtnSpace > button:nth-child(2) (side file)
-            # "次へ" というテキストを含むボタン
             next_btn = driver.find_element(By.XPATH, "//button[contains(.,'次へ')]")
             next_btn.click()
             
@@ -126,7 +118,6 @@ def main():
 
             # 実行 (スマホ認証)
             print("実行 (スマホ認証) をクリック。スマホで承認操作を行ってください。")
-            # css=.spAuth
             execute_btn = WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.CLASS_NAME, "spAuth"))
             )
@@ -141,9 +132,6 @@ def main():
                     EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'他の振込を行う')]"))
                 )
                 print("振込完了確認")
-                
-                # ループ継続のため「他の振込を行う」をクリックするか、TOPに戻るか
-                # .sideファイルでは「他の振込を行う」 -> 「TOP」 -> ループ先頭(振込ボタン) となっている
                 other_transfer_btn.click()
                 time.sleep(5)
                 
@@ -171,21 +159,16 @@ def main():
         logout_link = driver.find_element(By.LINK_TEXT, "ログアウト")
         logout_link.click()
         
-        # ログアウト確認ダイアログなどが出る場合がある
-        # .side: click css=.btnCenter > button:nth-child(2) ("はい")
-        try:
-            print("ログアウト確認...")
-            yes_btn = WebDriverWait(driver, 5).until(
-                EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'はい')]"))
-            )
-            yes_btn.click()
+        print("ログアウト確認...")
+        yes_btn = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'はい')]"))
+        )
+        yes_btn.click()
             
-            # "ログイン画面へ" ボタンなどを確認して終了
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//span[contains(.,'ログイン画面へ')]"))
-            )
-        except:
-            print("ログアウト確認ダイアログが出なかったか、すでにログアウトしています。")
+        # "ログイン画面へ" ボタンなどを確認して終了
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//span[contains(.,'ログイン画面へ')]"))
+        )
 
     except Exception as e:
         print(f"ステータス: エラー - {e}")
