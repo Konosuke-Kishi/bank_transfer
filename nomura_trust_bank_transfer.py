@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import chromedriver_autoinstaller
+import geckodriver_autoinstaller
 
 # ======================================================
 # 設定ファイル（config.py）の読み込み
@@ -38,7 +39,7 @@ JSPATH = CONFIG["inputJSFilePath"]
 # 使用するブラウザのバージョンと一致するdriverをダウンロードし
 # ブラウザごとにオプション・プロファイルを設定する
 if(USE_BROWSER == "Firefox"):
-  executable_path = "/usr/local/bin/geckodriver"
+  executable_path = geckodriver_autoinstaller.install()
   options = webdriver.FirefoxOptions()
   options.add_argument('--disable-popup-blocking')
   options.add_argument("-profile")
@@ -101,7 +102,7 @@ def main():
         # ===========================================================
                 
         # 振込メニューへ
-        transfer_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, "振込")))
+        transfer_link = WebDriverWait(driver, 180).until(EC.element_to_be_clickable((By.LINK_TEXT, "振込")))
         transfer_link.click()
 
         # 4. 振込ループ処理
