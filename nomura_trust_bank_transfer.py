@@ -8,7 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pyotp, chromedriver_autoinstaller, geckodriver_autoinstaller
-from config_edit import CONFIG
+from config import CONFIG
 
 # ======================================================
 # 設定ファイル（config.py）の読み込み
