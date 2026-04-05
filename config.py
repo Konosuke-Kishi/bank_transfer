@@ -3,11 +3,13 @@
 # ======================================================
 CONFIG = {
   # 使用するブラウザの種類
-  'useBrowser': 'Chrome',
+  'useBrowser': 'Chrome', # "Chrome" or "Firefox"
+  # ヘッドレスブラウザを使用するかどうか
+  'useHeadlessBrowser': False,
   # Chromeユーザプロファイルの格納先パス（必須）
   'chromeUserDataDir': '/Users/<Macのユーザ名>/Library/Application Support/Google/Chrome/Selenium', #左記はMacの例
   # Firefoxユーザプロファイルの格納先パス（必須）
-  'firefoxUserDataDir': '/Users/<Macのユーザ名>/Library/Application Support/Firefox/Profiles/xxxxxxxx.selenium-client.profile', #左記はMacの例
+  'firefoxUserDataDir': '/Users/<Macのユーザ名>/Library/Application Support/Firefox/Profiles/xxxxxxxx.プロファイル 1', #左記はMacの例
   # 入金金額（全銀行共通）
   'amountOfMoney': 10000,
   # auじぶん銀行の顧客番号
@@ -28,14 +30,12 @@ CONFIG = {
   'nomuraTrustBankAccountNum': 'xxxxxxxx',
   # 野村信託銀行 ログインパスワード
   'nomuraTrustBankLoginPassword': 'xxxxxxxx',
-  # 野村信託銀行 取引パスワード
-  'nomuraTrustBankTransPassword': 'xxxxxxxx',
   # 野村信託銀行 認証用電話番号
   'nomuraTrustBankPhone1': 'xxx',
   'nomuraTrustBankPhone2': 'xxxx',
   'nomuraTrustBankPhone3': 'xxxx',
-  # 認証番号入力用のJavaScriptファイルパス
-  'inputJSFilePath': 'input_pin.js',
+  # 野村信託銀行 ワンタイム認証セットアップキー
+  'nomuraTrustBankOTPSecret': 'xxxxxxxxxxxx',
   # auじぶん銀行の振込回数
   'aubankPaymentCount': 15,
   # SBI新生銀行の振込回数
@@ -44,4 +44,7 @@ CONFIG = {
   'aozorabankPaymentCount': 9,
   # 野村信託銀行の振込回数
   'nomuraTrustBankPaymentCount': 10,
+  # LINE Messaging API情報
+  'lineUserId': '<LINE Messaging API設定で払い出したユーザID>',
+  'lineChannelToken': '<LINE Messaging API設定で払い出したチャネルアクセストークン（長期）>'
 }
