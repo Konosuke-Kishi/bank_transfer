@@ -15,25 +15,26 @@ from config import CONFIG
 # ======================================================
 # 使用するブラウザの種類
 USE_BROWSER = CONFIG['useBrowser']
+# 入金金額
+AMOUNT_OF_MONEY = CONFIG["amountOfMoney"]
 # ヘッドレスブラウザを使用するかどうか
 USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
+# 待機時間
+ELEMENT_WAIT_TIME = CONFIG["elementWaitTime"]
+DEVICE_AUTH_WAIT_TIME = CONFIG["deviceAuthWaitTime"]
 # Chromeユーザプロファイルの格納先パス
 CHROME_USER_DATA_DIR = CONFIG['chromeUserDataDir']
 # Firefoxユーザプロファイルの格納先パス
 FIREFOX_USER_DATA_DIR = CONFIG['firefoxUserDataDir']
 # 野村信託銀行情報
-AMOUNT_OF_MONEY = CONFIG["amountOfMoney"]
-NOMURA_TRUST_BANK_PHONE1 = CONFIG["nomuraTrustBankPhone1"]
-NOMURA_TRUST_BANK_PHONE2 = CONFIG["nomuraTrustBankPhone2"]
-NOMURA_TRUST_BANK_PHONE3 = CONFIG["nomuraTrustBankPhone3"]
-NOMURA_TRUST_BANK_BRANCH_CODE = CONFIG["nomuraTrustBankBranchCode"]
-NOMURA_TRUST_BANK_ACCOUNT_NUM = CONFIG["nomuraTrustBankAccountNum"]
-NOMURA_TRUST_BANK_PAYMENT_COUNT = CONFIG["nomuraTrustBankPaymentCount"]
-NOMURA_TRUST_BANK_LOGIN_PASSWORD = CONFIG["nomuraTrustBankLoginPassword"]
-NOMURA_TRUST_BANK_OTP_SECRET = CONFIG["nomuraTrustBankOTPSecret"]
-# 待機時間
-ELEMENT_WAIT_TIME = 30
-DEVICE_AUTH_WAIT_TIME = 120
+NOMURA_BANK_PHONE1 = CONFIG["nomurabankPhone1"]
+NOMURA_BANK_PHONE2 = CONFIG["nomurabankPhone2"]
+NOMURA_BANK_PHONE3 = CONFIG["nomurabankPhone3"]
+NOMURA_BANK_BRANCH_CODE = CONFIG["nomurabankBranchCode"]
+NOMURA_BANK_ACCOUNT_NUM = CONFIG["nomurabankAccountNum"]
+NOMURA_BANK_LOGIN_PASSWORD = CONFIG["nomurabankLoginPassword"]
+NOMURA_BANK_OTP_SECRET = CONFIG["nomurabankOTPSecret"]
+NOMURA_BANK_PAYMENT_COUNT = CONFIG["nomurabankPaymentCount"]
 
 # ======================================================
 # ドライバの設定
@@ -60,7 +61,7 @@ def create_driver():
 # ======================================================
 # メイン処理
 # ======================================================
-def main():
+def nomura_trust_bank_transfer():
     # driverの設定
     driver = create_driver()
     driver.implicitly_wait(10)
@@ -78,30 +79,26 @@ def main():
         
         # 店番号
         branch_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-        EC.presence_of_element_located((By.NAME, "btnCd"))
-        )
+        EC.presence_of_element_located((By.NAME, "btnCd")))
         branch_input.clear()
-        branch_input.send_keys(NOMURA_TRUST_BANK_BRANCH_CODE)
+        branch_input.send_keys(NOMURA_BANK_BRANCH_CODE)
             
         # 口座番号
         account_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-            EC.presence_of_element_located((By.NAME, "kuzNo"))
-        )
+            EC.presence_of_element_located((By.NAME, "kuzNo")))
         account_input.clear()               
-        account_input.send_keys(NOMURA_TRUST_BANK_ACCOUNT_NUM)
+        account_input.send_keys(NOMURA_BANK_ACCOUNT_NUM)
             
         # パスワード
         password_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-            EC.presence_of_element_located((By.NAME, "gnziLoginPswd"))
-        )
+            EC.presence_of_element_located((By.NAME, "gnziLoginPswd")))
         password_input.clear()
-        password_input.send_keys(NOMURA_TRUST_BANK_LOGIN_PASSWORD)
+        password_input.send_keys(NOMURA_BANK_LOGIN_PASSWORD)
             
         # 3. ログイン実行
         print("ログイン実行...")
         login_btn = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-            EC.element_to_be_clickable((By.NAME, "_ActionID"))
-        )
+            EC.element_to_be_clickable((By.NAME, "_ActionID")))
         login_btn.click()
         print(f"ログイン成功\n\"初回のみ野村信託銀行TOPまで手動操作してください")
 
@@ -112,19 +109,17 @@ def main():
         # 次の画面へ
         print("次の画面へ...")
         next_btn = WebDriverWait(driver, DEVICE_AUTH_WAIT_TIME).until(
-            EC.element_to_be_clickable((By.NAME, "ACT_doNext"))
-        )
+            EC.element_to_be_clickable((By.NAME, "ACT_doNext")))
         next_btn.click()
 
         # 振込メニューへ
         transfer_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-            EC.element_to_be_clickable((By.LINK_TEXT, "振込"))
-        )
+            EC.element_to_be_clickable((By.LINK_TEXT, "振込")))
         transfer_link.click()
 
         # 4. 振込ループ処理
-        for i in range(NOMURA_TRUST_BANK_PAYMENT_COUNT):
-            print(f"振込処理 {i+1} / {NOMURA_TRUST_BANK_PAYMENT_COUNT} 回目開始")
+        for i in range(NOMURA_BANK_PAYMENT_COUNT):
+            print(f"振込処理 {i+1} / {NOMURA_BANK_PAYMENT_COUNT} 回目開始")
 
             # 振込先選択 (「選択」リンク)
             print("振込先を選択...")
@@ -137,17 +132,17 @@ def main():
             tel1_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
                 EC.presence_of_element_located((By.NAME, "CMCTN_DEST_TEL_NUM1")))
             tel1_input.clear()
-            tel1_input.send_keys(NOMURA_TRUST_BANK_PHONE1)
+            tel1_input.send_keys(NOMURA_BANK_PHONE1)
                 
             tel2_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
                 EC.presence_of_element_located((By.NAME, "CMCTN_DEST_TEL_NUM2")))
             tel2_input.clear()
-            tel2_input.send_keys(NOMURA_TRUST_BANK_PHONE2)
+            tel2_input.send_keys(NOMURA_BANK_PHONE2)
                 
             tel3_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
                 EC.presence_of_element_located((By.NAME, "CMCTN_DEST_TEL_NUM3")))
             tel3_input.clear()
-            tel3_input.send_keys(NOMURA_TRUST_BANK_PHONE3)
+            tel3_input.send_keys(NOMURA_BANK_PHONE3)
 
             # 金額入力
             print(f"金額入力: {AMOUNT_OF_MONEY}円")
@@ -193,7 +188,7 @@ def main():
             otp_input = WebDriverWait(driver, DEVICE_AUTH_WAIT_TIME).until(
                 EC.element_to_be_clickable((By.NAME, "MASK_INC_SPOTP_PWD")))
             otp_input.clear()
-            otp_input.send_keys(pyotp.TOTP(NOMURA_TRUST_BANK_OTP_SECRET).now())
+            otp_input.send_keys(pyotp.TOTP(NOMURA_BANK_OTP_SECRET).now())
 
             # 実行ボタン押下
             print("実行ボタン押下...")
@@ -212,7 +207,7 @@ def main():
         # 5. ログアウト
         print("ログアウト処理...")
         logout_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-            EC.element_to_be_clickable((By.LINK_TEXT, "ログアウト")))
+        EC.element_to_be_clickable((By.LINK_TEXT, "ログアウト")))
         logout_link.click()
         
         print("ログアウト確認...")
@@ -231,4 +226,4 @@ def main():
         driver.quit()
 
 if __name__ == "__main__":
-    main()
+    nomura_trust_bank_transfer()

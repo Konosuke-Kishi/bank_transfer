@@ -1,28 +1,29 @@
 # ======================================================
 # ライブラリ
 # ======================================================
-import time, chromedriver_autoinstaller, geckodriver_autoinstaller
+from config import CONFIG
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from config import CONFIG
+import time, chromedriver_autoinstaller, geckodriver_autoinstaller
 
 # ======================================================
 # 設定ファイル（config.py）の読み込み
 # ======================================================
 # 使用するブラウザの種類
 USE_BROWSER = CONFIG['useBrowser']
+# 入金金額
+AMOUNT_OF_MONEY = CONFIG['amountOfMoney']
 # ヘッドレスブラウザを使用するかどうか
 USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
-# あおぞら銀行情報
-AMOUNT_OF_MONEY = CONFIG["amountOfMoney"]
-AOZORA_BANK_CUST_NUM = CONFIG["aozorabankCustomerNo"]
-AOZORA_BANK_PASSWORD = CONFIG["aozorabankLoginPassword"]
-AOZORA_BANK_PAYMENT_COUNT = CONFIG["aozorabankPaymentCount"]
 # 待機時間
-ELEMENT_WAIT_TIME = 20
-DEVICE_AUTH_WAIT_TIME = 30
+ELEMENT_WAIT_TIME = CONFIG['elementWaitTime']
+DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
+# あおぞら銀行情報
+AOZORA_BANK_CUST_NUM = CONFIG['aozorabankCustomerNo']
+AOZORA_BANK_PASSWORD = CONFIG['aozorabankLoginPassword']
+AOZORA_BANK_PAYMENT_COUNT = CONFIG['aozorabankPaymentCount']
 
 # ======================================================
 # ドライバの設定
@@ -46,7 +47,7 @@ def create_driver():
 # ======================================================
 # メイン処理
 # ======================================================
-def main():
+def aozora_bank_transfer():
     # driverの設定
     driver = create_driver()
     driver.implicitly_wait(10)
@@ -148,4 +149,4 @@ def main():
         driver.quit()
 
 if __name__ == "__main__":
-    main()
+    aozora_bank_transfer()
