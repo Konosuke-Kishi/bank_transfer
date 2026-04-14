@@ -2,6 +2,7 @@
 # ライブラリ
 # ======================================================
 from config import CONFIG
+from config_aubank import CONFIG as AUBANK_CONFIG
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -24,11 +25,11 @@ USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
 ELEMENT_WAIT_TIME = CONFIG['elementWaitTime']
 DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
 # auじぶん銀行情報
-AU_BANK_PASSWORD = CONFIG['aubankLoginPassword']
-AU_BANK_LOGIN_URL = CONFIG['aubankLoginUrl']
-AU_BANK_CUSTOMER_NO = CONFIG['aubankCustomerNo']
-AU_BANK_CSS_SELECTOR = CONFIG['aubankCssSelector']
-AU_BANK_PAYMENT_COUNT = CONFIG['aubankPaymentCount']
+AU_BANK_PASSWORD = AUBANK_CONFIG['aubankLoginPassword']
+AU_BANK_LOGIN_URL = AUBANK_CONFIG['aubankLoginUrl']
+AU_BANK_CUSTOMER_NO = AUBANK_CONFIG['aubankCustomerNo']
+AU_BANK_CSS_SELECTOR = AUBANK_CONFIG['aubankCssSelector']
+AU_BANK_PAYMENT_COUNT = AUBANK_CONFIG['aubankPaymentCount']
 
 # ======================================================
 # ドライバの設定

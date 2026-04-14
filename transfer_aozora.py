@@ -2,6 +2,7 @@
 # ライブラリ
 # ======================================================
 from config import CONFIG
+from config_aozora import CONFIG as AOZORA_CONFIG
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -24,11 +25,11 @@ USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
 ELEMENT_WAIT_TIME = CONFIG['elementWaitTime']
 DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
 # あおぞら銀行情報
-AOZORA_CSS_SELECTOR = CONFIG['aozorabankCssSelector']
-AOZORA_BANK_PASSWORD = CONFIG['aozorabankLoginPassword']
-AOZORA_BANK_LOGIN_URL = CONFIG['aozorabankLoginUrl']
-AOZORA_BANK_CUSTOMER_NO = CONFIG['aozorabankCustomerNo']
-AOZORA_BANK_PAYMENT_COUNT = CONFIG['aozorabankPaymentCount']
+AOZORA_CSS_SELECTOR = AOZORA_CONFIG['aozorabankCssSelector']
+AOZORA_BANK_PASSWORD = AOZORA_CONFIG['aozorabankLoginPassword']
+AOZORA_BANK_LOGIN_URL = AOZORA_CONFIG['aozorabankLoginUrl']
+AOZORA_BANK_CUSTOMER_NO = AOZORA_CONFIG['aozorabankCustomerNo']
+AOZORA_BANK_PAYMENT_COUNT = AOZORA_CONFIG['aozorabankPaymentCount']
 
 # ======================================================
 # ドライバの設定

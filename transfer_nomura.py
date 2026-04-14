@@ -2,6 +2,7 @@
 # ライブラリ
 # ======================================================
 from config import CONFIG
+from config_nomura import CONFIG as NOMURA_CONFIG
 from notify import line_notify
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -30,16 +31,16 @@ FIREFOX_USER_DATA_DIR = CONFIG['firefoxUserDataDir']
 WINDOW_WIDTH = CONFIG['windowWidth']
 WINDOW_HEIGHT = CONFIG['windowHeight']
 # 野村信託銀行情報
-NOMURA_BANK_XPATH = CONFIG["nomurabankXPath"]
-NOMURA_BANK_PHONE1 = CONFIG["nomurabankPhone1"]
-NOMURA_BANK_PHONE2 = CONFIG["nomurabankPhone2"]
-NOMURA_BANK_PHONE3 = CONFIG["nomurabankPhone3"]
-NOMURA_BANK_PASSWORD = CONFIG["nomurabankLoginPassword"]
-NOMURA_BANK_LOGIN_URL = CONFIG["nomurabankLoginUrl"]
-NOMURA_BANK_OTP_SECRET = CONFIG["nomurabankOTPSecret"]
-NOMURA_BANK_BRANCH_CODE = CONFIG["nomurabankBranchCode"]
-NOMURA_BANK_ACCOUNT_NUM = CONFIG["nomurabankAccountNum"]
-NOMURA_BANK_PAYMENT_COUNT = CONFIG["nomurabankPaymentCount"]
+NOMURA_BANK_XPATH = NOMURA_CONFIG["nomurabankXPath"]
+NOMURA_BANK_PHONE1 = NOMURA_CONFIG["nomurabankPhone1"]
+NOMURA_BANK_PHONE2 = NOMURA_CONFIG["nomurabankPhone2"]
+NOMURA_BANK_PHONE3 = NOMURA_CONFIG["nomurabankPhone3"]
+NOMURA_BANK_PASSWORD = NOMURA_CONFIG["nomurabankLoginPassword"]
+NOMURA_BANK_LOGIN_URL = NOMURA_CONFIG["nomurabankLoginUrl"]
+NOMURA_BANK_OTP_SECRET = NOMURA_CONFIG["nomurabankOTPSecret"]
+NOMURA_BANK_BRANCH_CODE = NOMURA_CONFIG["nomurabankBranchCode"]
+NOMURA_BANK_ACCOUNT_NUM = NOMURA_CONFIG["nomurabankAccountNum"]
+NOMURA_BANK_PAYMENT_COUNT = NOMURA_CONFIG["nomurabankPaymentCount"]
 
 # ======================================================
 # ドライバの設定

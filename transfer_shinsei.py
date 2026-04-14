@@ -2,6 +2,7 @@
 # ライブラリ
 # ======================================================
 from config import CONFIG
+from config_shinsei import CONFIG as SHINSEI_CONFIG
 from undetected_geckodriver import Firefox
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -28,11 +29,11 @@ DEVICE_AUTH_WAIT_TIME = CONFIG["deviceAuthWaitTime"]
 CHROME_PATH = CONFIG['chromePath']
 CMD_OPTIONS = CONFIG['cmdOptions']
 # SBI新生銀行情報
-SHINSEI_BANK_XPATH = CONFIG["shinseibankXPath"]
-SHINSEI_BANK_PASSWORD = CONFIG["shinseibankLoginPassword"]
-SHINSEI_BANK_LOGIN_URL = CONFIG["shinseibankLoginUrl"]
-SHINSEI_BANK_CUSTOMER_NO = CONFIG["shinseibankCustomerNo"]
-SHINSEI_BANK_PAYMENT_COUNT = CONFIG["shinseibankPaymentCount"]
+SHINSEI_BANK_XPATH = SHINSEI_CONFIG["shinseibankXPath"]
+SHINSEI_BANK_PASSWORD = SHINSEI_CONFIG["shinseibankLoginPassword"]
+SHINSEI_BANK_LOGIN_URL = SHINSEI_CONFIG["shinseibankLoginUrl"]
+SHINSEI_BANK_CUSTOMER_NO = SHINSEI_CONFIG["shinseibankCustomerNo"]
+SHINSEI_BANK_PAYMENT_COUNT = SHINSEI_CONFIG["shinseibankPaymentCount"]
 
 # ======================================================
 # chromeのメジャーバージョンを取得する
