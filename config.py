@@ -61,7 +61,7 @@ CONFIG = {
   'nomurabankPhone2': 'xxxx',
   'nomurabankPhone3': 'xxxx',
   # 野村信託銀行 ワンタイム認証セットアップキー
-  'nomurabankOTPSecret': 'xxxxxxxxxxxx',
+  'nomurabankOTPSecret': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
   # 野村信託銀行の振込回数
   'nomurabankPaymentCount': 10,
   # 野村信託銀行の架電する電話番号のXPath

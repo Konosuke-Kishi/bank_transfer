@@ -55,8 +55,6 @@ def create_driver():
 def au_jibun_bank_transfer():
     # driverの設定
     driver = create_driver()
-    driver.implicitly_wait(10)
-
     try:
         # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
@@ -157,11 +155,13 @@ def au_jibun_bank_transfer():
         logout_link.click()
         print("ログアウトしました。")
 
+    # エラー処理
     except Exception as e:
         print(f"エラーが発生しました: {e}")
         import traceback
         traceback.print_exc()
         
+    # ブラウザを終了
     finally:
         print("ブラウザを終了します")
         driver.quit()

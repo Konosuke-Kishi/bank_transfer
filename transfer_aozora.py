@@ -55,8 +55,6 @@ def create_driver():
 def aozora_bank_transfer():
     # driverの設定
     driver = create_driver()
-    driver.implicitly_wait(10)
-
     try:
         # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
@@ -144,11 +142,13 @@ def aozora_bank_transfer():
             EC.element_to_be_clickable((By.CSS_SELECTOR, AOZORA_CSS_SELECTOR))).click()
         print("ログアウトしました。")
 
+    # エラー処理
     except Exception as e:
         print(f"ステータス: エラー - {e}")
         import traceback
         traceback.print_exc()
-        
+
+    # ブラウザを終了    
     finally:
         print("ブラウザを終了します")
         driver.quit()

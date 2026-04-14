@@ -69,8 +69,6 @@ def create_driver():
 def nomura_trust_bank_transfer():
     # driverの設定
     driver = create_driver()
-    driver.implicitly_wait(10)
-
     try:
         # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
@@ -106,10 +104,6 @@ def nomura_trust_bank_transfer():
             EC.element_to_be_clickable((By.NAME, "_ActionID")))
         login_btn.click()
         print(f"ログイン成功\n\"初回のみ野村信託銀行TOPまで手動操作してください")
-
-        # ===================================================================
-        # TODO: 初回のみここでワンタイムパスワード認証と野村信託銀行の合言葉認証が入る
-        # ===================================================================
                 
         # 次の画面へ
         print("次の画面へ...")
@@ -209,23 +203,26 @@ def nomura_trust_bank_transfer():
             # 次の振込へ
             next_url_link.click()
 
-        # ログアウト
+        # ログアウト押下
         print("ログアウト処理...")
         logout_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
         EC.element_to_be_clickable((By.LINK_TEXT, "ログアウト")))
         logout_link.click()
         
+        # ログアウト実行
         print("ログアウト確認...")
         close_btn = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.element_to_be_clickable((By.ID, "button")))
         close_btn.click()
         print("ログアウトしました。")
 
+    # エラー処理
     except Exception as e:
         print(f"ステータス: エラー - {e}")
         import traceback
         traceback.print_exc()
             
+    # ブラウザを終了
     finally:
         print("ブラウザを終了します")
         driver.quit()

@@ -67,8 +67,6 @@ def create_driver():
 def sbi_shinsei_bank_transfer():
     # driverの設定
     driver = create_driver()
-    driver.implicitly_wait(10)
-
     try:
         # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
@@ -155,23 +153,26 @@ def sbi_shinsei_bank_transfer():
             # 次の振込へ
             other_transfer_btn.click()
 
-        # ログアウト
+        # ログアウト押下
         print("ログアウト処理...")
         logout_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.element_to_be_clickable((By.LINK_TEXT, "ログアウト")))
         logout_link.click()
         
+        # ログアウト実行
         print("ログアウト確認...")
         yes_btn = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'はい')]")))
         yes_btn.click()
         print("ログアウトしました。")
 
+    # エラー処理
     except Exception as e:
         print(f"エラーが発生しました: {e}")
         import traceback
         traceback.print_exc()
-        
+    
+    # ブラウザを終了
     finally:
         print("ブラウザを終了します")
         driver.quit()
