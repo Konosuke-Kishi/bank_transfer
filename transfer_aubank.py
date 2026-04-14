@@ -21,8 +21,9 @@ USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
 ELEMENT_WAIT_TIME = CONFIG['elementWaitTime']
 DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
 # auじぶん銀行情報
-AU_BANK_CUSTOMER_NO = CONFIG['aubankCustomerNo']
 AU_BANK_PASSWORD = CONFIG['aubankLoginPassword']
+AU_BANK_CUSTOMER_NO = CONFIG['aubankCustomerNo']
+AU_BANK_CSS_SELECTOR = CONFIG['aubankCssSelector']
 AU_BANK_PAYMENT_COUNT = CONFIG['aubankPaymentCount']
 
 # ======================================================
@@ -53,31 +54,14 @@ def au_jibun_bank_transfer():
     driver.implicitly_wait(10)
 
     try:
-        # 1. トップページへアクセス
-        print("トップページへアクセス中...")
-        driver.get("https://www.jibunbank.co.jp/")
+        # ログイン画面へアクセス
+        print("ログイン画面へアクセス中...")
+        driver.get("https://www.jibunbank.co.jp/redirect/login.html?cid=tpkv_pc")
         
-        # 現在のウィンドウハンドルを保存
-        main_window_handle = driver.current_window_handle
+        # ウィンドウサイズ設定
+        driver.set_window_size(1475, 1060)
 
-        # 2. ログインボタンクリック (新しいウィンドウが開く)
-        print("ログインボタンをクリック...")
-        login_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-            EC.element_to_be_clickable((By.LINK_TEXT, "ログイン")))
-        login_link.click()
-
-        # 新しいウィンドウが開くのを待つ
-        WebDriverWait(driver, ELEMENT_WAIT_TIME).until(EC.number_of_windows_to_be(2))
-        
-        # 新しいウィンドウへ切り替え
-        for handle in driver.window_handles:
-            if handle != main_window_handle:
-                driver.switch_to.window(handle)
-                break
-        
-        print("ログイン画面へ切り替え完了")
-
-        # 3. ログイン処理
+        # ログイン処理
         print("ログイン情報を入力中...")
         
         # お客さま番号入力
@@ -117,7 +101,7 @@ def au_jibun_bank_transfer():
             EC.element_to_be_clickable((By.LINK_TEXT, "振込")))
         sub_transfer_link.click()
 
-        # 4. 振込ループ処理
+        # 振込ループ処理
         for i in range(AU_BANK_PAYMENT_COUNT):
             print(f"振込処理 {i+1} / {AU_BANK_PAYMENT_COUNT} 回目開始")
 
@@ -130,7 +114,7 @@ def au_jibun_bank_transfer():
             # 振込先選択 (一番上)
             print("振込先を選択...")
             first_account = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, ".c-box-result-normal-result-item:nth-child(1) .c-box-result-item-bank-branch")))
+                EC.element_to_be_clickable((By.CSS_SELECTOR, AU_BANK_CSS_SELECTOR)))
             first_account.click()
 
             # 金額入力
@@ -162,7 +146,7 @@ def au_jibun_bank_transfer():
             # 次の振込へ
             next_transfer_btn.click()
 
-        # 5. ログアウト
+        # ログアウト
         print("ログアウト処理...")
         logout_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.element_to_be_clickable((By.LINK_TEXT, "ログアウト")))

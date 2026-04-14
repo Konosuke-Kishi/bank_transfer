@@ -1,15 +1,19 @@
 # ======================================================
 # ライブラリ
 # ======================================================
+from config import CONFIG
+from undetected_geckodriver import Firefox
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 import subprocess, re, undetected_chromedriver as uc
-from config import CONFIG
 
 # ======================================================
 # 設定ファイル（config.py）の読み込み
 # ======================================================
+# 使用するブラウザの種類
+USE_BROWSER = CONFIG['useBrowser']
 # 入金金額
 AMOUNT_OF_MONEY = CONFIG["amountOfMoney"]
 # ヘッドレスブラウザを使用するかどうか
@@ -17,15 +21,14 @@ USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
 # 待機時間
 ELEMENT_WAIT_TIME = CONFIG["elementWaitTime"]
 DEVICE_AUTH_WAIT_TIME = CONFIG["deviceAuthWaitTime"]
-# Chromeユーザプロファイルの格納先パス
-CHROME_USER_DATA_DIR = CONFIG['chromeUserDataDir']
-# SBI新生銀行情報
-SHINSEIBANK_PASSWORD = CONFIG["shinseibankLoginPassword"]
-SHINSEIBANK_CUSTOMER_NO = CONFIG["shinseibankCustomerNo"]
-SHINSEIBANK_PAYMENT_COUNT = CONFIG["shinseibankPaymentCount"]
 # Chromeのパスとバージョン取得コマンド
-CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-CMD_OPTIONS = "--version"
+CHROME_PATH = CONFIG['chromePath']
+CMD_OPTIONS = CONFIG['cmdOptions']
+# SBI新生銀行情報
+SHINSEI_BANK_XPATH = CONFIG["shinseibankXPath"]
+SHINSEI_BANK_PASSWORD = CONFIG["shinseibankLoginPassword"]
+SHINSEI_BANK_CUSTOMER_NO = CONFIG["shinseibankCustomerNo"]
+SHINSEI_BANK_PAYMENT_COUNT = CONFIG["shinseibankPaymentCount"]
 
 # ======================================================
 # chromeのメジャーバージョンを取得する
@@ -42,10 +45,15 @@ def get_chrome_version_mac():
 # ドライバの設定
 # ======================================================
 def create_driver():
+  if(USE_BROWSER == "Firefox"):
+    options = Options()
+    options.headless = USE_HEADLESS_BROWSER
+    options.add_argument('--disable-popup-blocking')
+    return Firefox(options=options)
+  if(USE_BROWSER == "Chrome"):
     options = uc.ChromeOptions()
     options.headless = USE_HEADLESS_BROWSER
     options.add_argument('--disable-popup-blocking')
-    options.add_argument(f"--user-data-dir={CHROME_USER_DATA_DIR}")
     return uc.Chrome(options=options, version_main=int(get_chrome_version_mac()))
 
 
@@ -58,45 +66,27 @@ def sbi_shinsei_bank_transfer():
     driver.implicitly_wait(10)
 
     try:
-        # 1. トップページへアクセス
-        print("トップページへアクセス中...")
-        driver.get("https://www.sbishinseibank.co.jp/")
+        # ログイン画面へアクセス
+        print("ログイン画面へアクセス中...")
+        driver.get("https://bk.web.sbishinseibank.co.jp/SFC/apps/services/www/SFC/desktopbrowser/default/login?mode=1&intcid=login_mega")
         
-        # 現在のウィンドウハンドルを保存
-        main_window_handle = driver.current_window_handle
+        # ウィンドウサイズ設定
+        driver.set_window_size(1475, 1060)
 
-        # 2. ログインボタンクリック (新しいウィンドウが開く)
-        print("ログインボタンをクリック...")
-        login_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-            EC.element_to_be_clickable((By.LINK_TEXT, "ログイン"))
-        )
-        login_link.click()
-
-        # 新しいウィンドウが開くのを待つ
-        WebDriverWait(driver, ELEMENT_WAIT_TIME).until(EC.number_of_windows_to_be(2))
-        
-        # 新しいウィンドウへ切り替え
-        for handle in driver.window_handles:
-            if handle != main_window_handle:
-                driver.switch_to.window(handle)
-                break
-        
-        print("ログイン画面へ切り替え完了")
-
-        # 3. ログイン処理
+        # ログイン処理
         print("ログイン情報を入力中...")
 
         # 店番号・口座番号入力
         customer_no_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.element_to_be_clickable((By.NAME, "nationalId")))
         customer_no_input.clear()
-        customer_no_input.send_keys(SHINSEIBANK_CUSTOMER_NO)
+        customer_no_input.send_keys(SHINSEI_BANK_CUSTOMER_NO)
         
         # パスワード入力
         password_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.element_to_be_clickable((By.ID, "loginPassword")))
         password_input.clear()
-        password_input.send_keys(SHINSEIBANK_PASSWORD)
+        password_input.send_keys(SHINSEI_BANK_PASSWORD)
 
         # ログイン実行
         print("ログイン実行...")
@@ -115,9 +105,9 @@ def sbi_shinsei_bank_transfer():
             EC.element_to_be_clickable((By.LINK_TEXT, "振込")))
         transfer_link.click()
 
-        # 4. 振込ループ処理
-        for i in range(SHINSEIBANK_PAYMENT_COUNT):
-            print(f"振込処理 {i+1} / {SHINSEIBANK_PAYMENT_COUNT} 回目開始")
+        # 振込ループ処理
+        for i in range(SHINSEI_BANK_PAYMENT_COUNT):
+            print(f"振込処理 {i+1} / {SHINSEI_BANK_PAYMENT_COUNT} 回目開始")
 
             # 振込を行う
             print("振込を行うを選択...")
@@ -128,7 +118,7 @@ def sbi_shinsei_bank_transfer():
             # 振込先選択 (1番目)
             print("振込先(1番目)を選択...")
             first_payee_btn = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-                EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[2]/div[1]/section[2]/div/table/tbody/tr/td[6]/button/span")))
+                EC.element_to_be_clickable((By.XPATH, SHINSEI_BANK_XPATH)))
             first_payee_btn.click()
 
             # 金額入力
@@ -161,7 +151,7 @@ def sbi_shinsei_bank_transfer():
             # 次の振込へ
             other_transfer_btn.click()
 
-        # 5. ログアウト
+        # ログアウト
         print("ログアウト処理...")
         logout_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.element_to_be_clickable((By.LINK_TEXT, "ログアウト")))

@@ -1,6 +1,7 @@
 # ======================================================
 # ライブラリ
 # ======================================================
+from config import CONFIG
 from notify import line_notify
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -8,7 +9,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pyotp, chromedriver_autoinstaller, geckodriver_autoinstaller
-from config import CONFIG
 
 # ======================================================
 # 設定ファイル（config.py）の読み込み
@@ -27,14 +27,15 @@ CHROME_USER_DATA_DIR = CONFIG['chromeUserDataDir']
 # Firefoxユーザプロファイルの格納先パス
 FIREFOX_USER_DATA_DIR = CONFIG['firefoxUserDataDir']
 # 野村信託銀行情報
+NOMURA_BANK_XPATH = CONFIG["nomurabankXPath"]
 NOMURA_BANK_PHONE1 = CONFIG["nomurabankPhone1"]
 NOMURA_BANK_PHONE2 = CONFIG["nomurabankPhone2"]
 NOMURA_BANK_PHONE3 = CONFIG["nomurabankPhone3"]
+NOMURA_BANK_OTP_SECRET = CONFIG["nomurabankOTPSecret"]
 NOMURA_BANK_BRANCH_CODE = CONFIG["nomurabankBranchCode"]
 NOMURA_BANK_ACCOUNT_NUM = CONFIG["nomurabankAccountNum"]
-NOMURA_BANK_LOGIN_PASSWORD = CONFIG["nomurabankLoginPassword"]
-NOMURA_BANK_OTP_SECRET = CONFIG["nomurabankOTPSecret"]
 NOMURA_BANK_PAYMENT_COUNT = CONFIG["nomurabankPaymentCount"]
+NOMURA_BANK_LOGIN_PASSWORD = CONFIG["nomurabankLoginPassword"]
 
 # ======================================================
 # ドライバの設定
@@ -67,14 +68,14 @@ def nomura_trust_bank_transfer():
     driver.implicitly_wait(10)
 
     try:
-        # 1. ログイン画面へアクセス
+        # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
         driver.get("https://hometrade.nomura.co.jp/web/rmfCmnEtcExcSso8Action.do")
         
         # ウィンドウサイズ設定
         driver.set_window_size(1475, 1060)
 
-        # 2. ログイン情報入力
+        # ログイン情報入力
         print("ログイン情報を入力中...")
         
         # 店番号
@@ -95,7 +96,7 @@ def nomura_trust_bank_transfer():
         password_input.clear()
         password_input.send_keys(NOMURA_BANK_LOGIN_PASSWORD)
             
-        # 3. ログイン実行
+        # ログイン実行
         print("ログイン実行...")
         login_btn = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.element_to_be_clickable((By.NAME, "_ActionID")))
@@ -117,7 +118,7 @@ def nomura_trust_bank_transfer():
             EC.element_to_be_clickable((By.LINK_TEXT, "振込")))
         transfer_link.click()
 
-        # 4. 振込ループ処理
+        # 振込ループ処理
         for i in range(NOMURA_BANK_PAYMENT_COUNT):
             print(f"振込処理 {i+1} / {NOMURA_BANK_PAYMENT_COUNT} 回目開始")
 
@@ -160,7 +161,7 @@ def nomura_trust_bank_transfer():
             # 架電する電話番号を選択
             print("架電する電話番号を選択...")
             tel_checkbox = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-                EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/form[1]/table[3]/tbody/tr/td/table/tbody/tr[2]/td/div/input")))
+                EC.element_to_be_clickable((By.XPATH, NOMURA_BANK_XPATH)))
             tel_checkbox.send_keys(Keys.SPACE)
 
             # 電話をかけて認証ボタンを押下
@@ -204,7 +205,7 @@ def nomura_trust_bank_transfer():
             # 次の振込へ
             next_url_link.click()
 
-        # 5. ログアウト
+        # ログアウト
         print("ログアウト処理...")
         logout_link = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
         EC.element_to_be_clickable((By.LINK_TEXT, "ログアウト")))

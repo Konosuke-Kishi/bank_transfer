@@ -21,8 +21,9 @@ USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
 ELEMENT_WAIT_TIME = CONFIG['elementWaitTime']
 DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
 # あおぞら銀行情報
-AOZORA_BANK_CUST_NUM = CONFIG['aozorabankCustomerNo']
+AOZORA_CSS_SELECTOR = CONFIG['aozorabankCssSelector']
 AOZORA_BANK_PASSWORD = CONFIG['aozorabankLoginPassword']
+AOZORA_BANK_CUSTOMER_NO = CONFIG['aozorabankCustomerNo']
 AOZORA_BANK_PAYMENT_COUNT = CONFIG['aozorabankPaymentCount']
 
 # ======================================================
@@ -64,7 +65,7 @@ def aozora_bank_transfer():
         print("ログイン情報を入力中...")
         WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.presence_of_element_located((By.NAME, "BTX0010"))
-        ).send_keys(AOZORA_BANK_CUST_NUM)
+        ).send_keys(AOZORA_BANK_CUSTOMER_NO)
         
         # パスワード入力
         WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
@@ -136,7 +137,7 @@ def aozora_bank_transfer():
         # ログアウト
         print("ログアウト処理...")
         WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, "#cs_globalButton_logout > img"))).click()
+            EC.element_to_be_clickable((By.CSS_SELECTOR, AOZORA_CSS_SELECTOR))).click()
         print("ログアウトしました。")
 
     except Exception as e:
