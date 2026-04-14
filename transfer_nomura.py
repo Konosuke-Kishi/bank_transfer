@@ -26,16 +26,20 @@ DEVICE_AUTH_WAIT_TIME = CONFIG["deviceAuthWaitTime"]
 CHROME_USER_DATA_DIR = CONFIG['chromeUserDataDir']
 # Firefoxユーザプロファイルの格納先パス
 FIREFOX_USER_DATA_DIR = CONFIG['firefoxUserDataDir']
+# ウィンドウ設定
+WINDOW_WIDTH = CONFIG['windowWidth']
+WINDOW_HEIGHT = CONFIG['windowHeight']
 # 野村信託銀行情報
 NOMURA_BANK_XPATH = CONFIG["nomurabankXPath"]
 NOMURA_BANK_PHONE1 = CONFIG["nomurabankPhone1"]
 NOMURA_BANK_PHONE2 = CONFIG["nomurabankPhone2"]
 NOMURA_BANK_PHONE3 = CONFIG["nomurabankPhone3"]
+NOMURA_BANK_PASSWORD = CONFIG["nomurabankLoginPassword"]
+NOMURA_BANK_LOGIN_URL = CONFIG["nomurabankLoginUrl"]
 NOMURA_BANK_OTP_SECRET = CONFIG["nomurabankOTPSecret"]
 NOMURA_BANK_BRANCH_CODE = CONFIG["nomurabankBranchCode"]
 NOMURA_BANK_ACCOUNT_NUM = CONFIG["nomurabankAccountNum"]
 NOMURA_BANK_PAYMENT_COUNT = CONFIG["nomurabankPaymentCount"]
-NOMURA_BANK_LOGIN_PASSWORD = CONFIG["nomurabankLoginPassword"]
 
 # ======================================================
 # ドライバの設定
@@ -70,10 +74,10 @@ def nomura_trust_bank_transfer():
     try:
         # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
-        driver.get("https://hometrade.nomura.co.jp/web/rmfCmnEtcExcSso8Action.do")
+        driver.get(NOMURA_BANK_LOGIN_URL)
         
         # ウィンドウサイズ設定
-        driver.set_window_size(1475, 1060)
+        driver.set_window_size(WINDOW_WIDTH, WINDOW_HEIGHT)
 
         # ログイン情報入力
         print("ログイン情報を入力中...")
@@ -94,7 +98,7 @@ def nomura_trust_bank_transfer():
         password_input = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
             EC.presence_of_element_located((By.NAME, "gnziLoginPswd")))
         password_input.clear()
-        password_input.send_keys(NOMURA_BANK_LOGIN_PASSWORD)
+        password_input.send_keys(NOMURA_BANK_PASSWORD)
             
         # ログイン実行
         print("ログイン実行...")

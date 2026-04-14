@@ -11,6 +11,9 @@ import time, chromedriver_autoinstaller, geckodriver_autoinstaller
 # ======================================================
 # 設定ファイル（config.py）の読み込み
 # ======================================================
+# ウィンドウ設定
+WINDOW_WIDTH = CONFIG['windowWidth']
+WINDOW_HEIGHT = CONFIG['windowHeight']
 # 使用するブラウザの種類
 USE_BROWSER = CONFIG['useBrowser']
 # 入金金額
@@ -22,6 +25,7 @@ ELEMENT_WAIT_TIME = CONFIG['elementWaitTime']
 DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
 # auじぶん銀行情報
 AU_BANK_PASSWORD = CONFIG['aubankLoginPassword']
+AU_BANK_LOGIN_URL = CONFIG['aubankLoginUrl']
 AU_BANK_CUSTOMER_NO = CONFIG['aubankCustomerNo']
 AU_BANK_CSS_SELECTOR = CONFIG['aubankCssSelector']
 AU_BANK_PAYMENT_COUNT = CONFIG['aubankPaymentCount']
@@ -56,10 +60,10 @@ def au_jibun_bank_transfer():
     try:
         # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
-        driver.get("https://www.jibunbank.co.jp/redirect/login.html?cid=tpkv_pc")
+        driver.get(AU_BANK_LOGIN_URL)
         
         # ウィンドウサイズ設定
-        driver.set_window_size(1475, 1060)
+        driver.set_window_size(WINDOW_WIDTH, WINDOW_HEIGHT)
 
         # ログイン処理
         print("ログイン情報を入力中...")

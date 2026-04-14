@@ -12,6 +12,9 @@ import subprocess, re, undetected_chromedriver as uc
 # ======================================================
 # 設定ファイル（config.py）の読み込み
 # ======================================================
+# ウィンドウ設定
+WINDOW_WIDTH = CONFIG['windowWidth']
+WINDOW_HEIGHT = CONFIG['windowHeight']
 # 使用するブラウザの種類
 USE_BROWSER = CONFIG['useBrowser']
 # 入金金額
@@ -27,6 +30,7 @@ CMD_OPTIONS = CONFIG['cmdOptions']
 # SBI新生銀行情報
 SHINSEI_BANK_XPATH = CONFIG["shinseibankXPath"]
 SHINSEI_BANK_PASSWORD = CONFIG["shinseibankLoginPassword"]
+SHINSEI_BANK_LOGIN_URL = CONFIG["shinseibankLoginUrl"]
 SHINSEI_BANK_CUSTOMER_NO = CONFIG["shinseibankCustomerNo"]
 SHINSEI_BANK_PAYMENT_COUNT = CONFIG["shinseibankPaymentCount"]
 
@@ -68,10 +72,10 @@ def sbi_shinsei_bank_transfer():
     try:
         # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
-        driver.get("https://bk.web.sbishinseibank.co.jp/SFC/apps/services/www/SFC/desktopbrowser/default/login?mode=1&intcid=login_mega")
+        driver.get(SHINSEI_BANK_LOGIN_URL)
         
         # ウィンドウサイズ設定
-        driver.set_window_size(1475, 1060)
+        driver.set_window_size(WINDOW_WIDTH, WINDOW_HEIGHT)
 
         # ログイン処理
         print("ログイン情報を入力中...")

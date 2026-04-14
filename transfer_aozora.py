@@ -11,6 +11,9 @@ import time, chromedriver_autoinstaller, geckodriver_autoinstaller
 # ======================================================
 # 設定ファイル（config.py）の読み込み
 # ======================================================
+# ウィンドウ設定
+WINDOW_WIDTH = CONFIG['windowWidth']
+WINDOW_HEIGHT = CONFIG['windowHeight']
 # 使用するブラウザの種類
 USE_BROWSER = CONFIG['useBrowser']
 # 入金金額
@@ -23,6 +26,7 @@ DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
 # あおぞら銀行情報
 AOZORA_CSS_SELECTOR = CONFIG['aozorabankCssSelector']
 AOZORA_BANK_PASSWORD = CONFIG['aozorabankLoginPassword']
+AOZORA_BANK_LOGIN_URL = CONFIG['aozorabankLoginUrl']
 AOZORA_BANK_CUSTOMER_NO = CONFIG['aozorabankCustomerNo']
 AOZORA_BANK_PAYMENT_COUNT = CONFIG['aozorabankPaymentCount']
 
@@ -56,10 +60,10 @@ def aozora_bank_transfer():
     try:
         # ログイン画面へアクセス
         print("ログイン画面へアクセス中...")
-        driver.get("https://www.ib2.aozorabank.co.jp/ib/index.do?PT=BS&CCT0080=0398")
+        driver.get(AOZORA_BANK_LOGIN_URL)
         
         # ウィンドウサイズ設定
-        driver.set_window_size(1475, 1060)
+        driver.set_window_size(WINDOW_WIDTH, WINDOW_HEIGHT)
 
         # ログイン情報入力
         print("ログイン情報を入力中...")
