@@ -2,6 +2,12 @@
 # SBI新生銀行の設定ファイル
 # ======================================================
 CONFIG = {
+  # 使用するブラウザの種類
+  'useBrowser': 'Chrome', # "Chrome" or "Firefox"
+  # ページ要素が見つかるまでの待機時間（秒）
+  'elementWaitTime': 30,
+  # デバイス認証の完了を待機する時間（秒）
+  'deviceAuthWaitTime': 120,
   # SBI新生銀行の顧客番号
   'shinseibankCustomerNo': 'xxxxxxxxxx',
   # SBI新生銀行のログインパスワード

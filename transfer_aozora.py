@@ -16,14 +16,14 @@ import time, chromedriver_autoinstaller, geckodriver_autoinstaller
 WINDOW_WIDTH = CONFIG['windowWidth']
 WINDOW_HEIGHT = CONFIG['windowHeight']
 # 使用するブラウザの種類
-USE_BROWSER = CONFIG['useBrowser']
+USE_BROWSER = AOZORA_CONFIG['useBrowser']
 # 入金金額
 AMOUNT_OF_MONEY = CONFIG['amountOfMoney']
 # ヘッドレスブラウザを使用するかどうか
 USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
 # 待機時間
-ELEMENT_WAIT_TIME = CONFIG['elementWaitTime']
-DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
+ELEMENT_WAIT_TIME = AOZORA_CONFIG['elementWaitTime']
+DEVICE_AUTH_WAIT_TIME = AOZORA_CONFIG['deviceAuthWaitTime']
 # あおぞら銀行情報
 AOZORA_CSS_SELECTOR = AOZORA_CONFIG['aozorabankCssSelector']
 AOZORA_BANK_PASSWORD = AOZORA_CONFIG['aozorabankLoginPassword']

@@ -15,14 +15,14 @@ import pyotp, chromedriver_autoinstaller, geckodriver_autoinstaller
 # 設定ファイル（config.py）の読み込み
 # ======================================================
 # 使用するブラウザの種類
-USE_BROWSER = CONFIG['useBrowser']
+USE_BROWSER = NOMURA_CONFIG['useBrowser']
 # 入金金額
 AMOUNT_OF_MONEY = CONFIG["amountOfMoney"]
 # ヘッドレスブラウザを使用するかどうか
 USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
 # 待機時間
-ELEMENT_WAIT_TIME = CONFIG["elementWaitTime"]
-DEVICE_AUTH_WAIT_TIME = CONFIG["deviceAuthWaitTime"]
+ELEMENT_WAIT_TIME = NOMURA_CONFIG["elementWaitTime"]
+DEVICE_AUTH_WAIT_TIME = NOMURA_CONFIG["deviceAuthWaitTime"]
 # Chromeユーザプロファイルの格納先パス
 CHROME_USER_DATA_DIR = CONFIG['chromeUserDataDir']
 # Firefoxユーザプロファイルの格納先パス
@@ -192,6 +192,8 @@ def nomura_trust_bank_transfer():
 
             # 実行ボタン押下
             print("実行ボタン押下...")
+            WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
+                EC.invisibility_of_element_located((By.ID, "TB_overlay")))
             execute_btn = WebDriverWait(driver, ELEMENT_WAIT_TIME).until(
                 EC.element_to_be_clickable((By.NAME, "ACT_doDecide")))
             execute_btn.click()

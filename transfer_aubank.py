@@ -16,14 +16,14 @@ import time, chromedriver_autoinstaller, geckodriver_autoinstaller
 WINDOW_WIDTH = CONFIG['windowWidth']
 WINDOW_HEIGHT = CONFIG['windowHeight']
 # 使用するブラウザの種類
-USE_BROWSER = CONFIG['useBrowser']
+USE_BROWSER = AUBANK_CONFIG['useBrowser']
 # 入金金額
 AMOUNT_OF_MONEY = CONFIG['amountOfMoney']
 # ヘッドレスブラウザを使用するかどうか
 USE_HEADLESS_BROWSER = CONFIG['useHeadlessBrowser']
 # 待機時間
-ELEMENT_WAIT_TIME = CONFIG['elementWaitTime']
-DEVICE_AUTH_WAIT_TIME = CONFIG['deviceAuthWaitTime']
+ELEMENT_WAIT_TIME = AUBANK_CONFIG['elementWaitTime']
+DEVICE_AUTH_WAIT_TIME = AUBANK_CONFIG['deviceAuthWaitTime']
 # auじぶん銀行情報
 AU_BANK_PASSWORD = AUBANK_CONFIG['aubankLoginPassword']
 AU_BANK_LOGIN_URL = AUBANK_CONFIG['aubankLoginUrl']
